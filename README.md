@@ -1,19 +1,16 @@
-________________________________
---------Project Overview--------
-________________________________
+# Project Overview
 
 Unplanned industrial machine downtime results in substantial operational and financial losses. This project implements a full machine learning lifecycle:
 
-1. Exploratory Data Analysis & Modeling: Sensor telemetry preprocessing, feature engineering, and training high-performance classification models
-    (XGBoost / Random Forest).
-3. REST API Backend: A FastAPI microservice serving predictions with input validation.
-4. Interactive Frontend Dashboard: A responsive web UI enabling operators to input live sensor telemetry, visualize health status, and receive preventive
-   maintenance recommendations.
+1. **Exploratory Data Analysis & Modeling:** Sensor telemetry preprocessing, feature engineering, and training high-performance classification models (XGBoost / Random Forest).
+2. **REST API Backend:** A FastAPI microservice serving predictions with input validation.
+3. **Interactive Frontend Dashboard:** A responsive web UI enabling operators to input live sensor telemetry, visualize health status, and receive preventive maintenance recommendations.
 
-________________________________
--Architecture and Data Pipeline-
-________________________________
+---
 
+#  Architecture and Data Pipeline
+
+```text
 [ Sensor Telemetry ] ──> [ Web Dashboard (UI) ] 
                                   │ (JSON POST)
                                   ▼
@@ -26,8 +23,6 @@ ________________________________
                                   │
                                   ▼
                         [ Health Assessment & Recommendations ]
-____________________________________________________________________________________________
-
 
 _______________________________
 ------Project Structure--------
