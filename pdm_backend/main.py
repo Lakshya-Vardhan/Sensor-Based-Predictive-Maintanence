@@ -4,21 +4,11 @@ from pydantic import BaseModel
 import pandas as pd
 import joblib
 
-
-# =====================================================
-# APP
-# =====================================================
-
 app = FastAPI(
     title="Predictive Maintenance API",
     description="Predictive maintenance system using XGBoost",
     version="1.0"
 )
-
-
-# =====================================================
-# CORS
-# =====================================================
 
 app.add_middleware(
     CORSMiddleware,
@@ -27,11 +17,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-# =====================================================
-# LOAD MODELS
-# =====================================================
 
 failure_24h_model = joblib.load("models/xgb_model_24hrs.pkl")
 
@@ -46,10 +31,6 @@ failure_type_labels = {
     3: "motor_overheat",
     4: "none"
 }
-
-# =====================================================
-# REQUEST MODEL
-# =====================================================
 
 class MachineData(BaseModel):
 
@@ -67,11 +48,6 @@ class MachineData(BaseModel):
 
     rpm: float
 
-
-# =====================================================
-# HOME
-# =====================================================
-
 @app.get("/")
 def home():
 
@@ -79,17 +55,8 @@ def home():
         "message": "Predictive Maintenance API is running"
     }
 
-
-# =====================================================
-# PREDICTION
-# =====================================================
-
 @app.post("/predict")
 def predict(data: MachineData):
-
-    # ---------------------------------------------
-    # Convert request into DataFrame
-    # ---------------------------------------------
 
     input_data = pd.DataFrame([
         {
@@ -103,40 +70,20 @@ def predict(data: MachineData):
         }
     ])
 
-
-    # ---------------------------------------------
-    # One-hot encoding
-    # ---------------------------------------------
-
     input_encoded = pd.get_dummies(
         input_data
     )
-
-
-    # ---------------------------------------------
-    # Match training columns
-    # ---------------------------------------------
 
     input_encoded = input_encoded.reindex(
         columns=feature_columns,
         fill_value=0
     )
 
-
-    # ---------------------------------------------
-    # Failure within 24 hours
-    # ---------------------------------------------
-
     failure_24h_prediction = (
         failure_24h_model.predict(
             input_encoded
         )[0]
     )
-
-
-    # ---------------------------------------------
-    # Failure type
-    # ---------------------------------------------
 
     failure_type_prediction = (
         failure_type_model.predict(
@@ -146,10 +93,6 @@ def predict(data: MachineData):
 
     failure_type = failure_type_labels[int(failure_type_prediction)]
 
-    # ---------------------------------------------
-    # Return response
-    # ---------------------------------------------
-
     return {
 
         "machine_type":
@@ -158,5 +101,6 @@ def predict(data: MachineData):
         "failure_within_24h":
             bool(failure_24h_prediction),
 
-        "failure_type": failure_type
+        "failure_type": 
+            failure_type
     }

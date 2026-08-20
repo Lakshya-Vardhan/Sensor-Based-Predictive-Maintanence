@@ -1,6 +1,4 @@
-// =====================================================
 // MACHINE DATA
-// =====================================================
 
 const machines = {
 
@@ -38,9 +36,7 @@ const machines = {
 };
 
 
-// =====================================================
 // GET ELEMENTS
-// =====================================================
 
 const machineOptions =
     document.querySelectorAll(".machine-option");
@@ -82,16 +78,12 @@ const recommendation =
     document.getElementById("recommendation");
 
 
-// =====================================================
 // CURRENT MACHINE
-// =====================================================
 
 let selectedMachine = "CNC";
 
 
-// =====================================================
 // MACHINE SELECTION
-// =====================================================
 
 machineOptions.forEach(option => {
 
@@ -101,15 +93,12 @@ machineOptions.forEach(option => {
         selectedMachine =
             option.dataset.machine;
 
-        // Remove selected from all
         machineOptions.forEach(item => {
             item.classList.remove("selected");
         });
 
-        // Select current machine
         option.classList.add("selected");
 
-        // Update machine UI
         updateMachine(selectedMachine);
 
         // Update step indicator
@@ -117,10 +106,7 @@ machineOptions.forEach(option => {
     });
 });
 
-
-// =====================================================
 // UPDATE MACHINE
-// =====================================================
 
 function updateMachine(machineType) {
 
@@ -130,27 +116,21 @@ function updateMachine(machineType) {
         return;
     }
 
-    // Machine name
     selectedMachineName.textContent =
         machine.name;
 
-    // Machine ID
     machineId.textContent =
         machine.id;
 
-    // Icon
     machinePreviewIcon.textContent =
         machine.shortName;
 
-    // Machine description
     machineTypeDisplay.textContent =
         machine.description;
 
-    // Update page heading
     document.title =
         `${machine.name} | Predictive Maintenance`;
 
-    // Small visual animation
     selectedMachineName.classList.remove(
         "machine-change"
     );
@@ -162,10 +142,7 @@ function updateMachine(machineType) {
     );
 }
 
-
-// =====================================================
 // STEP INDICATOR
-// =====================================================
 
 function updateStep(stepNumber) {
 
@@ -182,19 +159,13 @@ function updateStep(stepNumber) {
     });
 }
 
-
-// =====================================================
 // FORM SUBMISSION
-// =====================================================
 
 form.addEventListener("submit", async event => {
 
     event.preventDefault();
 
-
-    // ---------------------------------------------
     // Read values
-    // ---------------------------------------------
 
     const data = {
 
@@ -244,10 +215,7 @@ form.addEventListener("submit", async event => {
             )
     };
 
-
-    // ---------------------------------------------
     // Validate
-    // ---------------------------------------------
 
     if (
         data.vibration_rms < 0 ||
@@ -265,20 +233,14 @@ form.addEventListener("submit", async event => {
         return;
     }
 
-
-    // ---------------------------------------------
     // Get button
-    // ---------------------------------------------
 
     const button =
         document.querySelector(
             ".analyze-button"
         );
 
-
-    // ---------------------------------------------
     // Loading state
-    // ---------------------------------------------
 
     button.disabled = true;
 
@@ -292,9 +254,7 @@ form.addEventListener("submit", async event => {
 
     try {
 
-        // -----------------------------------------
         // Send request to FastAPI
-        // -----------------------------------------
 
         const response =
             await fetch(
@@ -313,9 +273,7 @@ form.addEventListener("submit", async event => {
             );
 
 
-        // -----------------------------------------
         // Check response
-        // -----------------------------------------
 
         if (!response.ok) {
 
@@ -325,9 +283,7 @@ form.addEventListener("submit", async event => {
         }
 
 
-        // -----------------------------------------
         // Convert response to JSON
-        // -----------------------------------------
 
         const prediction =
             await response.json();
@@ -339,24 +295,15 @@ form.addEventListener("submit", async event => {
         );
 
 
-        // -----------------------------------------
         // Display prediction
-        // -----------------------------------------
-
         displayPrediction(prediction);
 
 
-        // -----------------------------------------
         // Update step
-        // -----------------------------------------
-
         updateStep(3);
 
 
-        // -----------------------------------------
         // Scroll to results
-        // -----------------------------------------
-
         results.scrollIntoView({
             behavior: "smooth",
             block: "start"
@@ -377,10 +324,7 @@ form.addEventListener("submit", async event => {
 
     } finally {
 
-        // -----------------------------------------
         // Restore button
-        // -----------------------------------------
-
         button.disabled = false;
 
         button.querySelector(
@@ -392,20 +336,12 @@ form.addEventListener("submit", async event => {
 });
 
 
-// =====================================================
 // DISPLAY PREDICTION
-// =====================================================
-
 function displayPrediction(prediction) {
 
     // Show results
     results.classList.remove("hidden");
-
-
-    // =================================================
     // FAILURE WITHIN 24 HOURS
-    // =================================================
-
     if (prediction.failure_within_24h) {
 
         failure24Prediction.textContent =
@@ -417,11 +353,7 @@ function displayPrediction(prediction) {
         failure24Description.textContent =
             "The model predicts that this machine may experience a failure within the next 24 hours.";
 
-
-        // =================================================
-        // FAILURE TYPE
-        // =================================================
-
+            // FAILURE TYPE
         const formattedFailure =
             formatFailureType(
                 prediction.failure_type
@@ -436,22 +368,14 @@ function displayPrediction(prediction) {
         failureTypeDescription.textContent =
             "The predicted failure type requires attention and further inspection.";
 
-
-        // =================================================
         // STATUS
-        // =================================================
-
         machineStatus.textContent =
             "● HIGH RISK";
 
         machineStatus.className =
             "status danger";
 
-
-        // =================================================
         // RECOMMENDATION
-        // =================================================
-
         recommendation.className =
             "recommendation danger";
 
@@ -472,11 +396,7 @@ function displayPrediction(prediction) {
 
     }
 
-
-    // =================================================
     // NORMAL
-    // =================================================
-
     else {
 
         failure24Prediction.textContent =
@@ -498,22 +418,14 @@ function displayPrediction(prediction) {
         failureTypeDescription.textContent =
             "No specific failure type has been detected.";
 
-
-        // =================================================
         // STATUS
-        // =================================================
-
         machineStatus.textContent =
             "● NORMAL";
 
         machineStatus.className =
             "status normal";
 
-
-        // =================================================
         // RECOMMENDATION
-        // =================================================
-
         recommendation.className =
             "recommendation normal";
 
@@ -534,11 +446,7 @@ function displayPrediction(prediction) {
     }
 }
 
-
-// =====================================================
 // FORMAT FAILURE TYPE
-// =====================================================
-
 function formatFailureType(type) {
 
     if (!type) {
@@ -560,11 +468,7 @@ function formatFailureType(type) {
         .join(" ");
 }
 
-
-// =====================================================
 // INITIALIZE
-// =====================================================
-
 updateMachine("CNC");
 
 updateStep(1);
