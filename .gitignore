@@ -1,0 +1,23 @@
+# Virtual Environment
+venv/
+env/
+ENV/
+pdm_backend/venv/
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+pdm_backend/__pycache__/
+
+# Environment variables / Local configs
+.env
+.DS_Store
+.vscode/
+.idea/
+
+# Large Datasets / CSVS (if any)
+*.csv
+
+# (Optional) If your model files are > 50-100MB, uncomment the line below:
+# pdm_backend/models/*.pkl

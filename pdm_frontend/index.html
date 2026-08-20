@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Predictive Maintenance Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            PM
+        </div>
+
+        <div>
+
+            <span class="system-label">
+                INDUSTRIAL AI
+            </span>
+
+            <h1>
+                Predictive Maintenance
+            </h1>
+
+        </div>
+
+    </div>
+
+
+    <div class="system-status">
+
+        <span class="status-dot"></span>
+
+        <span>
+            System Online
+        </span>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="container">
+
+
+    <!-- =================================================
+         WELCOME SECTION
+    ================================================== -->
+
+    <section class="welcome">
+
+        <div>
+
+            <span class="section-label">
+                MACHINE HEALTH MONITORING
+            </span>
+
+            <h2>
+                Predict machine failures
+                <span>before they happen.</span>
+            </h2>
+
+            <p>
+                Enter the current machine readings below.
+                The system will analyze the sensor data and
+                predict whether a failure may occur within
+                the next 24 hours.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         STEP INDICATOR
+    ================================================== -->
+
+    <div class="steps">
+
+        <div class="step active">
+
+            <span class="step-number">
+                1
+            </span>
+
+            <div>
+                <strong>
+                    Select machine
+                </strong>
+
+                <small>
+                    Choose machine type
+                </small>
+            </div>
+
+        </div>
+
+
+        <div class="step-line"></div>
+
+
+        <div class="step">
+
+            <span class="step-number">
+                2
+            </span>
+
+            <div>
+                <strong>
+                    Enter readings
+                </strong>
+
+                <small>
+                    Add sensor values
+                </small>
+            </div>
+
+        </div>
+
+
+        <div class="step-line"></div>
+
+
+        <div class="step">
+
+            <span class="step-number">
+                3
+            </span>
+
+            <div>
+                <strong>
+                    Analyze
+                </strong>
+
+                <small>
+                    View prediction
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         MACHINE SELECTION
+    ================================================== -->
+
+    <section class="card machine-selection">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="section-label">
+                    STEP 1
+                </span>
+
+                <h2>
+                    Select your machine
+                </h2>
+
+                <p>
+                    Choose the type of industrial machine
+                    you want to analyze.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="machine-options">
+
+
+            <button
+                class="machine-option selected"
+                data-machine="CNC"
+                type="button"
+            >
+
+                <div class="machine-symbol">
+                    CNC
+                </div>
+
+                <div>
+
+                    <strong>
+                        CNC Machine
+                    </strong>
+
+                    <span>
+                        Computer controlled machining
+                    </span>
+
+                </div>
+
+                <span class="check">
+                    ✓
+                </span>
+
+            </button>
+
+
+
+            <button
+                class="machine-option"
+                data-machine="Pump"
+                type="button"
+            >
+
+                <div class="machine-symbol">
+                    PMP
+                </div>
+
+                <div>
+
+                    <strong>
+                        Pump
+                    </strong>
+
+                    <span>
+                        Fluid movement system
+                    </span>
+
+                </div>
+
+                <span class="check">
+                    ✓
+                </span>
+
+            </button>
+
+
+
+            <button
+                class="machine-option"
+                data-machine="Compressor"
+                type="button"
+            >
+
+                <div class="machine-symbol">
+                    CMP
+                </div>
+
+                <div>
+
+                    <strong>
+                        Compressor
+                    </strong>
+
+                    <span>
+                        Air and gas compression
+                    </span>
+
+                </div>
+
+                <span class="check">
+                    ✓
+                </span>
+
+            </button>
+
+
+
+            <button
+                class="machine-option"
+                data-machine="Robotic Arm"
+                type="button"
+            >
+
+                <div class="machine-symbol">
+                    ROB
+                </div>
+
+                <div>
+
+                    <strong>
+                        Robotic Arm
+                    </strong>
+
+                    <span>
+                        Automated robotic system
+                    </span>
+
+                </div>
+
+                <span class="check">
+                    ✓
+                </span>
+
+            </button>
+
+
+        </div>
+
+
+        <div class="selected-machine">
+
+            <div class="machine-preview-icon">
+                CNC
+            </div>
+
+            <div>
+
+                <span>
+                    Selected machine
+                </span>
+
+                <strong id="selectedMachineName">
+                    CNC Machine
+                </strong>
+
+                <!-- ADD THIS LINE FOR THE DESCRIPTION -->
+                <p id="machineTypeDisplay" class="machine-description">
+                    Computer controlled machining system.
+                </p>
+
+            </div>
+
+            <div class="machine-id">
+                Machine ID:
+                <strong id="machineId">
+                    CNC-001
+                </strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         SENSOR INPUT
+    ================================================== -->
+
+    <section class="card sensor-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="section-label">
+                    STEP 2
+                </span>
+
+                <h2>
+                    Enter sensor readings
+                </h2>
+
+                <p>
+                    Enter the latest readings from the machine.
+                    Hover over <b>ⓘ</b> for an explanation.
+                </p>
+
+            </div>
+
+            <div class="input-status">
+
+                <span class="status-dot"></span>
+
+                Ready for input
+
+            </div>
+
+        </div>
+
+
+        <form id="predictionForm">
+
+
+            <div class="sensor-grid">
+
+
+                <!-- VIBRATION -->
+
+                <div class="input-card">
+
+                    <div class="input-title">
+
+                        <div class="input-icon">
+                            V
+                        </div>
+
+                        <div>
+
+                            <div class="title-row">
+
+                                <label>
+                                    Vibration RMS
+                                </label>
+
+                                <span class="tooltip">
+
+                                    ⓘ
+
+                                    <span class="tooltip-text">
+
+                                        Measures how much the machine
+                                        is vibrating. Abnormally high
+                                        vibration can indicate bearing,
+                                        alignment, or mechanical problems.
+
+                                    </span>
+
+                                </span>
+
+                            </div>
+
+                            <small>
+                                Mechanical vibration
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-wrapper">
+
+                        <input
+                            id="vibration"
+                            type="number"
+                            step="0.01"
+                            value="4.21"
+                            required
+                        >
+
+                        <span>
+                            RMS
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- TEMPERATURE -->
+
+                <div class="input-card">
+
+                    <div class="input-title">
+
+                        <div class="input-icon">
+                            T
+                        </div>
+
+                        <div>
+
+                            <div class="title-row">
+
+                                <label>
+                                    Motor Temperature
+                                </label>
+
+                                <span class="tooltip">
+
+                                    ⓘ
+
+                                    <span class="tooltip-text">
+
+                                        Temperature of the machine motor.
+                                        Excessive temperature can indicate
+                                        overheating, friction, or electrical
+                                        problems.
+
+                                    </span>
+
+                                </span>
+
+                            </div>
+
+                            <small>
+                                Motor thermal condition
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-wrapper">
+
+                        <input
+                            id="temperature"
+                            type="number"
+                            step="0.1"
+                            value="87.3"
+                            required
+                        >
+
+                        <span>
+                            °C
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CURRENT -->
+
+                <div class="input-card">
+
+                    <div class="input-title">
+
+                        <div class="input-icon">
+                            A
+                        </div>
+
+                        <div>
+
+                            <div class="title-row">
+
+                                <label>
+                                    Current Phase Avg
+                                </label>
+
+                                <span class="tooltip">
+
+                                    ⓘ
+
+                                    <span class="tooltip-text">
+
+                                        Average electrical current drawn
+                                        by the machine. Unusual current
+                                        levels can indicate motor or
+                                        electrical problems.
+
+                                    </span>
+
+                                </span>
+
+                            </div>
+
+                            <small>
+                                Electrical load
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-wrapper">
+
+                        <input
+                            id="current"
+                            type="number"
+                            step="0.1"
+                            value="12.4"
+                            required
+                        >
+
+                        <span>
+                            A
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MAINTENANCE -->
+
+                <div class="input-card">
+
+                    <div class="input-title">
+
+                        <div class="input-icon">
+                            M
+                        </div>
+
+                        <div>
+
+                            <div class="title-row">
+
+                                <label>
+                                    Hours Since Maintenance
+                                </label>
+
+                                <span class="tooltip">
+
+                                    ⓘ
+
+                                    <span class="tooltip-text">
+
+                                        Number of operating hours since
+                                        the machine was last serviced.
+                                        Higher values may indicate
+                                        increased maintenance risk.
+
+                                    </span>
+
+                                </span>
+
+                            </div>
+
+                            <small>
+                                Maintenance history
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-wrapper">
+
+                        <input
+                            id="maintenance"
+                            type="number"
+                            value="145"
+                            required
+                        >
+
+                        <span>
+                            hrs
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PRESSURE -->
+
+                <div class="input-card">
+
+                    <div class="input-title">
+
+                        <div class="input-icon">
+                            P
+                        </div>
+
+                        <div>
+
+                            <div class="title-row">
+
+                                <label>
+                                    Pressure Level
+                                </label>
+
+                                <span class="tooltip">
+
+                                    ⓘ
+
+                                    <span class="tooltip-text">
+
+                                        Pressure inside the machine
+                                        system. Abnormal pressure can
+                                        indicate hydraulic or mechanical
+                                        problems.
+
+                                    </span>
+
+                                </span>
+
+                            </div>
+
+                            <small>
+                                System pressure
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-wrapper">
+
+                        <input
+                            id="pressure"
+                            type="number"
+                            step="0.1"
+                            value="6.8"
+                            required
+                        >
+
+                        <span>
+                            bar
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- RPM -->
+
+                <div class="input-card">
+
+                    <div class="input-title">
+
+                        <div class="input-icon">
+                            R
+                        </div>
+
+                        <div>
+
+                            <div class="title-row">
+
+                                <label>
+                                    RPM
+                                </label>
+
+                                <span class="tooltip">
+
+                                    ⓘ
+
+                                    <span class="tooltip-text">
+
+                                        Rotational speed of the machine.
+                                        Abnormal RPM can indicate motor,
+                                        load, or mechanical issues.
+
+                                    </span>
+
+                                </span>
+
+                            </div>
+
+                            <small>
+                                Rotational speed
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-wrapper">
+
+                        <input
+                            id="rpm"
+                            type="number"
+                            value="3200"
+                            required
+                        >
+
+                        <span>
+                            RPM
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ANALYZE -->
+
+            <div class="analyze-area">
+
+                <div>
+
+                    <span class="secure-icon">
+                        ✓
+                    </span>
+
+                    <span>
+                        Your sensor data is ready
+                    </span>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="analyze-button"
+                >
+
+                    <span>
+                        Analyze Machine
+                    </span>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </section>
+
+
+
+    <!-- =================================================
+         RESULTS
+    ================================================== -->
+
+    <section
+        id="results"
+        class="results hidden"
+    >
+
+        <div class="results-heading">
+
+            <div>
+
+                <span class="section-label">
+                    STEP 3
+                </span>
+
+                <h2>
+                    Machine health assessment
+                </h2>
+
+            </div>
+
+            <!-- REPLACE OR ADD ALONGSIDE .analysis-time -->
+            <div class="results-status-wrap">
+                <span id="machineStatus" class="status normal">● NORMAL</span>
+                <span class="analysis-time">
+                    Analysis complete
+                </span>
+            </div>
+
+        </div>
+
+
+
+        <div class="prediction-grid">
+
+
+            <!-- 24 HOUR -->
+
+            <div class="card prediction-card">
+
+                <div class="prediction-top">
+
+                    <div>
+
+                        <span class="section-label">
+                            FAILURE PREDICTION
+                        </span>
+
+                        <h3>
+                            Within 24 hours
+                        </h3>
+
+                    </div>
+
+                    <div class="prediction-icon">
+                        24H
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="failure24Prediction"
+                    class="prediction-value safe"
+                >
+                    NO
+                </div>
+
+
+                <p id="failure24Description">
+                    No failure expected within
+                    the next 24 hours.
+                </p>
+
+            </div>
+
+
+
+            <!-- FAILURE TYPE -->
+
+            <div class="card prediction-card">
+
+                <div class="prediction-top">
+
+                    <div>
+
+                        <span class="section-label">
+                            FAILURE TYPE
+                        </span>
+
+                        <h3>
+                            Predicted failure
+                        </h3>
+
+                    </div>
+
+                    <div class="prediction-icon">
+                        AI
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="failureTypePrediction"
+                    class="prediction-value safe"
+                >
+                    NONE
+                </div>
+
+
+                <p id="failureTypeDescription">
+                    No specific failure type detected.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div
+            id="recommendation"
+            class="recommendation normal"
+        >
+
+            <div class="recommendation-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <strong>
+                    Machine operating normally
+                </strong>
+
+                <p>
+                    Continue normal monitoring and maintenance.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
